@@ -1,0 +1,25 @@
+{
+    "name": "booklook",
+    "version": "1.0.0",
+    "description": "Search the Internet for awesome books",
+    "main": "script.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/talhaker/booklook.git"
+    },
+    "author": "Tal Haker",
+    "license": "ISC",
+    "dependencies": {
+        "bootstrap": "^4.1.0",
+        "font-awesome": "^4.7.0",
+        "handlebars": "^4.0.11",
+        "jquery": "3.2.1"
+    },
+    "bugs": {
+        "url": "https://github.com/talhaker/booklook/issues"
+    },
+    "homepage": "https://github.com/talhaker/booklook#readme"
+}
