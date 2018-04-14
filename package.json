@@ -16,7 +16,8 @@
         "bootstrap": "^4.1.0",
         "font-awesome": "^4.7.0",
         "handlebars": "^4.0.11",
-        "jquery": "3.2.1"
+        "jquery": "3.2.1",
+        "popper.js": "^1.14.3"
     },
     "bugs": {
         "url": "https://github.com/talhaker/booklook/issues"
