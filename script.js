@@ -1,10 +1,10 @@
-var fetch = function(isbn) {
-    let url_isbn = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn;
+var fetch = function(text) {
+    let url_title = 'https://www.googleapis.com/books/v1/volumes?q=' + text;
     $.ajax({
         method: "GET",
-        url: url_isbn,
+        url: url_title,
         success: function(data) {
-            displayBookInfo(data);
+            displaySearchResults(data);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus);
@@ -12,25 +12,53 @@ var fetch = function(isbn) {
     });
 };
 
-let displayBookInfo = function(data) {
+let displaySearchResults = function(data) {
+    // Get div to place results into
+    let bookList = $('.books');
+    bookList.empty();
+    $('<h3>Search Results:</h3>').appendTo(bookList);
+
+    let listSize = (data.totalItems <= 10 ? data.totalItems : 10);
+    for (let ix = 0; ix < listSize; ix++) {
+        // Create display for a single book in the list
+        displayBookInfo(data, ix);
+    }
+}
+
+let displayBookInfo = function(data, ix) {
     let bookList = $('.books');
 
-    $('<div class="book"> \
-    <h1 class="book-title">' + data.items[0].volumeInfo.title + '</h1> \
-    <p class="book-description">' + data.items[0].volumeInfo.description + '</p> \
-    <h3 class="book-authors">Written by: ' + data.items[0].volumeInfo.authors + '</h3> \
-    <img src="' + data.items[0].volumeInfo.imageLinks.thumbnail + '" alt="Title image"></img> \
-    </div>').appendTo(bookList);
+    // Create display for a single book in the list
+    let bookDisplay = '<div class="book-details" id="' + ix + '">';
+    if (data.items[ix].volumeInfo.imageLinks !== undefined) {
+        bookDisplay += '<div class="ilb" ><img src="' + data.items[ix].volumeInfo.imageLinks.thumbnail + '" alt="Title image"></img></div>';
+    }
+    bookDisplay += '<div class = "ilb book-data" ><h1 class = "book-title">' + data.items[ix].volumeInfo.title + ' </h1>';
+    if (data.items[ix].volumeInfo.description !== undefined) {
+        bookDisplay += '<p class="book-description">' + data.items[ix].volumeInfo.description + '</p>';
+    };
+    bookDisplay += '<h3 class="book-authors">Written by: ' + data.items[ix].volumeInfo.authors + '</h3> \
+    </div></div>'
 
-    console.log(data.items[0].volumeInfo.title);
-    console.log(data.items[0].volumeInfo.authors);
-    console.log(data.items[0].volumeInfo.description);
-    console.log(data.items[0].volumeInfo.imageLinks.thumbnail);
+    $(bookDisplay).appendTo(bookList);
+}
+
+let displaySelectedBook = function(id) {
+    alert('Book ' + this.id + ' selected');
+
+    let bookList = $('.book-details');
+    for (let ix = 0; ix < bookList.length; ix++) {
+        // Remove all books - other than selected
+        if (this.id !== bookList[ix].id) {
+            bookList[ix].remove();
+        }
+    }
 }
 
 let searchHandler = function() {
-    let isbn = $('.form-control').val();
-    fetch(isbn);
+    let text = $('.form-control').val();
+    fetch(text);
 }
 
 $('.isbn-search').click(searchHandler);
+$('.books').on('click', '.book-details', displaySelectedBook);

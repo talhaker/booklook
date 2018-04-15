@@ -1,3 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
 .booklook-header {
     display: inline-block;
+}
+
+.ilb {
+    display: inline-block;
+}
+
+.books {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.book-details {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.book-data {
+    margin-left: 15px;
 }
