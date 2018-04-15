@@ -1,8 +1,7 @@
-var fetch = function(text) {
-    let url_title = 'https://www.googleapis.com/books/v1/volumes?q=' + text;
+var fetch = function(searchURL) {
     $.ajax({
         method: "GET",
-        url: url_title,
+        url: searchURL,
         success: function(data) {
             displaySearchResults(data);
         },
@@ -44,8 +43,6 @@ let displayBookInfo = function(data, ix) {
 }
 
 let displaySelectedBook = function(id) {
-    alert('Book ' + this.id + ' selected');
-
     let bookList = $('.book-details');
     for (let ix = 0; ix < bookList.length; ix++) {
         // Remove all books - other than selected
@@ -57,8 +54,25 @@ let displaySelectedBook = function(id) {
 
 let searchHandler = function() {
     let text = $('.form-control').val();
-    fetch(text);
+    let selectProperty = $("select option:selected").val();
+    let searchURL = 'https://www.googleapis.com/books/v1/volumes?q=';
+    switch (selectProperty) {
+        case "title":
+            searchURL += 'intitle:';
+            break;
+        case "author":
+            searchURL += 'inauthor:';
+            break;
+        case "isbn":
+            searchURL += 'isbn:';
+            break;
+        default:
+            alert('Illegal option!');
+            return;
+    }
+    searchURL += text;
+    fetch(searchURL);
 }
 
-$('.isbn-search').click(searchHandler);
+$('.search-text').click(searchHandler);
 $('.books').on('click', '.book-details', displaySelectedBook);
