@@ -22,21 +22,24 @@
         </div>
 
         <form>
-            <h3>Search Book</h3>
+            <h3>Search Book:</h3>
+            <br/>
 
-            <div class="form-group">
-                <input type="text" id="search-text" class="form-control" placeholder="Search Text">
-            </div>
             <div class="field-content">
                 <select>
-                    <option value="" disabled="disabled" selected="selected">Please choose search criteria</option>
+                    <option value="title" disabled="disabled" selected="selected">Please choose search criteria</option>
                     <option value="title">Title</option>
                     <option value="author">Author</option>
                     <option value="isbn">ISBN</option>
                 </select>
-            </div> <br>
+            </div>
+            <br/>
 
-            <button class="btn btn-primary search-text" type="button">Search</button>
+            <div class="form-group">
+                <input type="text" id="search-text" class="form-control" placeholder="Search Text">
+                <br/>
+                <button class="btn btn-primary search-text" type="submit">Search</button>
+            </div>
         </form>
     </div>
     <script src="node_modules/jquery/dist/jquery.js">

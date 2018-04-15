@@ -11,15 +11,15 @@
 }
 
 .books {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .book-details {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .book-data {
-    margin-left: 15px;
+    padding-left: 15px;
 }
