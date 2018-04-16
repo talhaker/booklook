@@ -14,7 +14,6 @@ var fetch = function(searchURL) {
 let displaySearchResults = function(data) {
     // Get div to place results into
     let bookList = $('.books');
-    bookList.empty();
     $('<h3>Search Results:</h3>').appendTo(bookList);
     if (data.totalItems === 0) {
         $('<h5>No results found...</h5>').appendTo(bookList);
@@ -72,7 +71,13 @@ let validateIsbn = function(isbnString) {
 }
 
 let searchHandler = function(event) {
+    // Allow 'enter' to execute (in addition to button click)
     event.preventDefault();
+
+    // Cleare previous results (if exist)
+    let bookList = $('.books');
+    bookList.empty();
+
     let text = $('.form-control').val();
     let selectProperty = $("select option:selected").val();
     let searchURL = 'https://www.googleapis.com/books/v1/volumes?q=';
@@ -101,3 +106,9 @@ let searchHandler = function(event) {
 
 $('.search-text').click(searchHandler);
 $('.books').on('click', '.book-details', displaySelectedBook);
+$(document).ajaxStart(function() {
+    $(".busy-indicator").show();
+});
+$(document).ajaxStop(function() {
+    $(".busy-indicator").hide();
+});
